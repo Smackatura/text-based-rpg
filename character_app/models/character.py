@@ -22,7 +22,7 @@ class Character:
         self.defense = data['defense']
         self.speed = data['speed']
         self.user_id = data['user_id']
-
+#test
     # Now we use class methods to query our database
     @classmethod
     def get_all(cls):
