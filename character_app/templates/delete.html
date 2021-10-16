@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Get rid of {{character.name}}?</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <!-- <script src='main.js'></script> -->
+</head>
+<body>
+    <h1>Are you sure you want to assassinate {{character.name}}?</h1>
+    <form action="/characters/{{character.id}}/destroy" method="POST">
+        <input name="id" type="hidden" value={{character.id}}>
+        <button type="submit">Murder {{character.name}}</button>
+    </form>
+    <!-- I would like to render a message "{{character.name}} has died." -->
+    <a href="/">Return</a>
+</body>
+</html>

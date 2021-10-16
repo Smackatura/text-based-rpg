@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Adventure</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
+</head>
+
+<body>
+    <h1>You Adventure awaits</h1>
+    <div class="containers">
+        <div class="row"  style="width:300px">
+            <!-- ================================================ render win / loss record?
+            I would like to separate this the training and have the battle get saved to the DB rather than the session.
+            ================================================ -->
+            <label for="battle">Gold found:</label>
+            <input type="text" placeholder="{{session.battle}}" disabled>
+        </div>
+        <h2>Moves: {{13 -session.rounds}}</h2>
+        <p>You've Accepted a Quest.</p>
+        <ul>
+            <li><p>Your quest brings you to a dungeon you have yet to explore.</p></li>
+            <li>
+                <p style="vertical-align:middle; text-align:center;">What will you do?</p>
+            </li>
+        </ul>
+        <div class="rows">
+            <form class="building" action="/process_battle" method="POST">
+                <p>Enter Dungeon</p>
+                <input type="hidden" name="building" value="entrance" />
+                <input type="submit" role="button" value="You see a room ahead of you"/>
+            </form>
+            <form class="building" action="/process_battle" method="POST">
+                <p>You've entered a long hallway.</p>
+                <input type="hidden" name="building" value="hallway" />
+                <input type="submit" role="button" value="You're weary as you pass thourgh"/>
+            </form>
+            <form class="building" action="/process_battle" method="POST">
+                <p>You turn the corner and slowly enter a small room</p>
+                <input type="hidden" name="building" value="smallroom" />
+                <input type="submit" role="button" value="Is there treasure? You see something glimmer.."/>
+            </form>
+            <form class="building" action="/process_battle" method="POST">
+                <h3>What was that sound?</h3>
+                <input type="hidden" name="building" value="thievesroom" />
+                <input type="submit" role="button" value="You accidentally kick a rusted helmet on the ground!"/>
+            </form>
+        </div>
+        
+        <div>
+        {% if session.battle > 150 %}
+            <div class="row">
+                <p>You have acquired the item needed for this quest and reached the exit.</p><a href="/dashboard">Return</a>
+                <a class="button" href="/reset">Restart Game!</a>
+            </div>
+        {% elif session.rounds > 13 %}
+            <div class="row">
+                <h1 class="lose">You were attacked by a thief in the dark, you died.</h1><a href="/dashboard">Return</a>
+                <p>Start quest over?</p>
+                <a class="button" href="/reset">Re-accept.</a>
+            </div>
+        {%endif%}
+        </div>
+        <div class="row">
+            <div class="activities">
+                {%for result in session.results|reverse %}
+                    <p class="{{result.result}}">{{result.message}}</p>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+<!-- container to be styled for the quest text -->
+    <!-- <div id="scroll-container">
+        <div id="large-container">
+            <div id="container">
+            </div>
+        </div> -->
+        
+    </div>
+</body>
+
+</html>

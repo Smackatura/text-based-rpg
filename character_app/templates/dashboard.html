@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Adventure</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
+</head>
+
+<body>
+    <h1>Welcome {{user.user_name}}</h1>
+        <table class="table table-dark table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            {% for character in characters %}
+                <tr>
+                    <td>{{character.name}}</td>
+                    <td>
+                        <a href="/characters/{{character.id}}" class="btn btn-outline-primary">View</a>
+                        <a href="/characters/{{character.id}}/edit" class="btn btn-outline-warning">Edit</a>
+                        <a href="/characters/{{character.id}}/delete" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="/battle">Continue Adventure</a>
+
+    <h3>Before you go, would you like to hire a Mercenary?</h3>
+    <form action="/characters/add" method="POST">
+        <label for="character">Nickname:</label>
+        <input name="name" type="text">
+        <select name="character" id='character'>
+            <option name='warrior'value="role">Warrior</option>
+            <option name='archer'value="role">Archer</option>
+            <option name='paladin'value="role">Paladin</option>
+        </select>
+        <button type="submit" value='submit'>Accept</button>
+    </form>
+
+
+    <h2>User Information:</h2>
+    <p>Email: {{user.email}}</p>
+    <p>Account was created at: {{user.created_at}}</p>
+
+    <a href="/logout">Logout?</a>
+</body>
+
+</html>
