@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,23 +12,21 @@
     <table class="table table-info">
         <thead>
             <th>NAME</th>
-            <th>JOB</th>
+            <th>ROLE</th>
             <th>ATK</th>
             <th>DEF</th>
             <th>SPD</th>
         </thead>
         <tbody>
-            {% for character in characters %}
             <tr>
                 <td>{{character.name}}</td>
-                <td>{{character.roles}}</td>
+                <td>{{character.role}}</td>
                 <td>{{character.attack}}</td>
                 <td>{{character.defense}}</td>
                 <td>{{character.speed}}</td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
     <a href="/battle"></a>
 </body>
-</html> -->
+</html>

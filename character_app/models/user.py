@@ -1,5 +1,6 @@
 from character_app.config.mysqlconnection import connectToMySQL
 from flask import flash
+from character_app.models.character import Character
 import re	# the regex module
 # create a regular battleression object that we'll use later
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -12,21 +13,44 @@ class User:
         self.user_name = data['user_name']
         self.email = data['email']
         self.password = data['password']
+        self.gold = data['gold']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.characters = []
 
     @classmethod
     def register_user(cls, data):
-        query = "INSERT INTO users(user_name, email, password) VALUES(%(user_name)s, %(email)s, %(password)s)"
+        query = "INSERT INTO users(user_name, email, password, gold) VALUES(%(user_name)s, %(email)s, %(password)s, 30)"
         return connectToMySQL("charas_db").query_db(query, data)
 
     @classmethod
     def get_user(cls, data):
-        query= "SELECT * FROM users WHERE id = %(id)s"
+        query= "SELECT * FROM users LEFT JOIN characters on users.id = characters.user_id WHERE users.id = %(id)s"
         results = connectToMySQL("charas_db").query_db(query, data)
+
         if len(results) < 1:
             return False
-        return cls(results[0])
+        user = cls(results[0])
+        
+        if (results[0]['characters.id'] != None):
+            for result in results:
+                charData = {
+                    "id": result['characters.id'],
+                    "name": result['name'],
+                    "role": result['role'],
+                    "attack": result['attack'],
+                    "defense": result['defense'],
+                    "speed": result['speed'],
+                    "user_id": result['user_id']
+                }
+                user.characters.append(Character(charData))
+        return user
+
+    @classmethod
+    def modify_gold(cls, data):
+        query= "UPDATE users SET gold = %(gold)s WHERE id = %(id)s"
+        results = connectToMySQL("charas_db").query_db(query, data)
+        return results
 
     @classmethod
     def get_user_by_email(cls, data):

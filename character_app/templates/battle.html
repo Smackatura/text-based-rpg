@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
     <title>Adventure</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-    <h1>You Adventure awaits</h1>
+    <div class="battle-text">
+    <h1>Your Adventure awaits</h1>
     <div class="containers">
         <div class="row"  style="width:300px">
             <!-- ================================================ render win / loss record?
@@ -19,43 +20,62 @@
             <input type="text" placeholder="{{session.battle}}" disabled>
         </div>
         <h2>Moves: {{13 -session.rounds}}</h2>
+        <h3>wallet: {{session['gold']}}</h3>
+        
+        {% if 13 - session.rounds > 0 and session.battle < 150 %}
         <p>You've Accepted a Quest.</p>
         <ul>
-            <li><p>Your quest brings you to a dungeon you have yet to explore.</p></li>
+            <li><p>Your quest brings you to a dungeon, your objective is to retrieve an item that was stolen from the quest giver by a Thief.</p></li>
             <li>
                 <p style="vertical-align:middle; text-align:center;">What will you do?</p>
             </li>
         </ul>
         <div class="rows">
+            {% if session.battle < 10 %}
             <form class="building" action="/process_battle" method="POST">
                 <p>Enter Dungeon</p>
                 <input type="hidden" name="building" value="entrance" />
                 <input type="submit" role="button" value="You see a room ahead of you"/>
             </form>
+            {% endif %}
+            {% if session.battle >= 10 and session.battle < 30 %}
             <form class="building" action="/process_battle" method="POST">
                 <p>You've entered a long hallway.</p>
                 <input type="hidden" name="building" value="hallway" />
-                <input type="submit" role="button" value="You're weary as you pass thourgh"/>
+                <input type="submit" role="button" value="You're weary as you pass through"/>
             </form>
+            {% endif %}
+            {% if session.battle >= 30 and session.battle < 120 %}
             <form class="building" action="/process_battle" method="POST">
                 <p>You turn the corner and slowly enter a small room</p>
                 <input type="hidden" name="building" value="smallroom" />
                 <input type="submit" role="button" value="Is there treasure? You see something glimmer.."/>
             </form>
+            {% endif %}
+            {% if session.battle >= 120 %}
             <form class="building" action="/process_battle" method="POST">
                 <h3>What was that sound?</h3>
-                <input type="hidden" name="building" value="thievesroom" />
+                <input type="hidden" name="building" value="thieve's room" />
                 <input type="submit" role="button" value="You accidentally kick a rusted helmet on the ground!"/>
             </form>
+            {% endif %}
         </div>
-        
+        {% endif%}
         <div>
-        {% if session.battle > 150 %}
+        {% if session.battle >= 150 %}
             <div class="row">
-                <p>You have acquired the item needed for this quest and reached the exit.</p><a href="/dashboard">Return</a>
+                <p>You have acquired the item needed for this quest and reached the exit.</p>
+                {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p style=" background-color: green; color:white;">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <a href="/dashboard">Return</a>
                 <a class="button" href="/reset">Restart Game!</a>
             </div>
-        {% elif session.rounds > 13 %}
+        {% elif session.rounds >= 13 %}
             <div class="row">
                 <h1 class="lose">You were attacked by a thief in the dark, you died.</h1><a href="/dashboard">Return</a>
                 <p>Start quest over?</p>
@@ -71,6 +91,7 @@
             </div>
         </div>
     </div>
+    <a href="/dashboard">Return</a>
 <!-- container to be styled for the quest text -->
     <!-- <div id="scroll-container">
         <div id="large-container">
@@ -79,6 +100,7 @@
         </div> -->
         
     </div>
+</div>
 </body>
 
 </html>

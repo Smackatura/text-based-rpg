@@ -6,19 +6,22 @@ from character_app.config.mysqlconnection import connectToMySQL
 
 
 class Character:
+    # Roles can be added here in order to be added as options for the user
+    roles = {
+            "Warrior":{"attack":7,"defense":4,"speed":4},
+            "Archer":{"attack":3,"defense":2,"speed":7},
+            "Paladin":{"attack":3,"defense":9,"speed":3},
+            "Jester":{"attack":7,"defense":2,"speed":9}
+        }
+
     def __init__( self , data ):
         self.id = data['id']
         self.name = data['name']
+        self.role = data['role']
         self.attack = data['attack']
         self.defense = data['defense']
         self.speed = data['speed']
         self.user_id = data['user_id']
-        # NEW ATTRIBUTE
-        self.roles = [
-            {"role":"Warrior","attack":7,"defense":4,"speed":4},
-            {"role":"Archer","attack":3,"defense":2,"speed":7},
-            {"role":"Paladin","attack":3,"defense":9,"speed":3}
-        ]
 
     # Now we use class methods to query our database
     @classmethod
@@ -35,7 +38,7 @@ class Character:
 
     @classmethod
     def add(cls, data):
-        query = "INSERT INTO characters(name, role user_id) VALUES(%(name)s, %(roles)s,%(user_id)s);"
+        query = "INSERT INTO characters(name, role, attack, defense, speed, user_id) VALUES (%(name)s, %(role)s, %(attack)s, %(defense)s, %(speed)s, %(user_id)s);"
         return connectToMySQL('charas_db').query_db(query, data)
 
     @classmethod
