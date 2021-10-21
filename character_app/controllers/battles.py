@@ -2,13 +2,14 @@ from character_app import app
 from flask import render_template, redirect, request, session
 import random
 from flask import flash
-# currently is rendered and utilizes session but can not be used by the db.
+# ninja gold mvc-refactored, mapped the randomInt feature per 'building'.
 MAP= {
     "entrance": (5,10),
     "hallway": (7, 14),
     "smallroom": (10,25),
     "thieve's room": (10, 50)
 }
+
 @app.route('/battle')
 def battle():
     if "battle" and "rounds" not in session:
@@ -25,7 +26,9 @@ def process_battle():
     current_battle = random.randint(building[0], building[1])
     result= 'win'
     message= f'Found {current_battle} gold on the ground near the {building_name}'
+    # checking if the button pressed is the thieves room
     if building_name == "thieve's room":
+        
         if random.randint(0,1) > 0:
             message = f"You're attacked by a thief and lost {current_battle} gold..."
             current_battle = current_battle * -1
@@ -44,4 +47,4 @@ def reset():
     session.pop('battle',None)
     session.pop('results', None)
     session.pop('rounds', None)
-    return redirect('/battle')
+    return redirect('/')

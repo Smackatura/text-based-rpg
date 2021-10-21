@@ -6,103 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hero! Login or Sign up!</title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
-    </head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 
-<body class="bg-dark text-light">
+<body class=" text-light">
 
-    <h1 class="text-dark mx-auto text-center">Dungeon hoarder</h1>
-    
-        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-            {% if messages %}                            <!-- check if there are any messages -->
-                {% for message in messages %}            <!-- loop through the messages -->
-                    <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <div class="large-container"><div class="hidden">
-            <h2>NEW GAME</h2>
-            <form action="/users/register" method="POST">
-                <p>Username: <input name="user_name" type="text"></p>
-                <!-- <p>Last Name: <input name="last_name" type="text"></p> -->
-                <p>Email: <input name="email" type="email"></p>
-                <p>Password: <input name="password" type="password"></p>
-                <p>Confirm Password: <input name="confirm_password" type="password"></p>
-                <button type="submit">START</button>
-            </form>
-        </div>
-        <div class="hidden">
-            <h2>CONTINUE</h2>
-            <form action="/users/login" method="POST">
-                <p>Email: <input name="email" type="email"></p>
-                <p>Password: <input name="password" type="password"></p>
-                <button type="submit">CONTINUE</button>
-            </form>
+    <h1 class="bg-rpg logo text-light text-center">Adventurer</h1>
+    {% with messages = get_flashed_messages() %}
+    <!-- declare a variable called messages -->
+    {% if messages %}
+    <!-- check if there are any messages -->
+    {% for message in messages %}
+    <!-- loop through the messages -->
+    <p>{{message}}</p> <!-- display each message in a paragraph tag -->
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="bg-rpg container justify-content-center">
+        
+        <p class="d-flex justify-content-around mx-auto">
+            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
+                aria-expanded="false" aria-controls="multiCollapseExample1">NEW GAME</a>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
+                aria-expanded="false" aria-controls="multiCollapseExample2">CONTINUE</button>
+        </p>
+        <div class="row">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="bg-rpg card card-body">
+                        <div class="hidden">
+                            <h2>NEW GAME</h2>
+                            <form action="/users/register" method="POST">
+                                <p>Username: <input name="user_name" type="text"></p>
+                                <!-- <p>Last Name: <input name="last_name" type="text"></p> -->
+                                <p>Email: <input name="email" type="email"></p>
+                                <p>Password: <input name="password" type="password"></p>
+                                <p>Confirm Password: <input name="confirm_password" type="password"></p>
+                                <button type="submit">START</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="bg-rpg card card-body">
+                        <div class="hidden">
+                            <h2>CONTINUE</h2>
+                            <form action="/users/login" method="POST">
+                                <p>Email: <input name="email" type="email"></p>
+                                <p>Password: <input name="password" type="password"></p>
+                                <button type="submit">CONTINUE</button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
 
 
 
-<!--
 
-    <div class="d-flex justify-content-around">
-        <form action="/users/register" method="post" class="col-4 p-4 bg-dark text-light">
-            <h2 class="text-primary">Register</h2>
-            {% with messages = get_flashed_messages(category_filter=['register']) %}
-            {% if messages %}
-            <div class="alert alert-danger" role="alert">
-                <strong>Flash AHHHHHHH!!!!</strong>
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% endwith %}
-            <div class="form-group">
-                <label for="user_name">Username:</label>
-                <input type="text" name="user_name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="confirm">Confirm Password:</label>
-                <input type="password" name="confirm" class="form-control">
-            </div>
-            <input type="submit" value="register" class="btn btn-primary">
-        </form>
-        <form action="/login" method="post" class="col-4 p-4 bg-dark text-light">
-            <h2 class="text-success">Login</h2>
-            {% with messages = get_flashed_messages(category_filter=['login']) %}
-            {% if messages %}
-            <div class="alert alert-danger" role="alert">
-                <strong>Flash AHHHHHHH!!!!</strong>
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% endwith %}
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control">
-            </div>
-
-            <input type="submit" value="login" class="btn btn-success">
-        </form>
-    </div> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

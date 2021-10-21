@@ -5,15 +5,19 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Name change? {{character.name}}</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Would you like to namechange {{character.name}}?</h1>
+    <div class="container bg-rpg">
+        <h1>Would you like to change {{character.name}}'s name?</h1>
     <form action="/characters/{{character.id}}/update" method="POST">
         <input name="id" type="hidden" value={{character.id}}>
         <p>Character Name: <input name="name" type="text" value="{{character.name}}"></p>
         <button type="submit">Change Name</button>
     </form>
     <a href="/">Return</a>
+    </div>
 </body>
 </html>

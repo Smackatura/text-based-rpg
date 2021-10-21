@@ -6,12 +6,13 @@ from character_app.config.mysqlconnection import connectToMySQL
 
 
 class Character:
-    # Roles can be added here in order to be added as options for the user
+    # Roles can be added here in order to be selected as options by the user
     roles = {
             "Warrior":{"attack":7,"defense":4,"speed":4},
             "Archer":{"attack":3,"defense":2,"speed":7},
             "Paladin":{"attack":3,"defense":9,"speed":3},
-            "Jester":{"attack":7,"defense":2,"speed":9}
+            "Jester":{"attack":7,"defense":2,"speed":9},
+            "Mimic":{"attack":0,"defense":11,"speed":11}
         }
 
     def __init__( self , data ):

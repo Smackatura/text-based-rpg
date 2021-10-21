@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    ##need to style this
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Character Screen</title>
 </head>
 <body>
-    <h1>{{character.name}}'s Status</h1>
+    <div class="container bg-rpg">
+        <h1>{{character.name}}'s Status</h1>
     <table class="table table-info">
         <thead>
             <th>NAME</th>
@@ -28,5 +30,7 @@
         </tbody>
     </table>
     <a href="/battle"></a>
+    <a href="/dashboard">Return</a>
+    </div>
 </body>
 </html>

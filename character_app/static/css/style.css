@@ -9,11 +9,15 @@ body {
     height: 100%;
     overflow: auto;
     background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,32,1) 11%, rgba(65,65,150,1) 100%); 
 }
-
+.logo {
+    padding: 90px;
+}
+.bg-rpg {
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,32,1) 11%, rgba(65,65,150,1) 100%);
+}
 ul  {
-    width: 450px;
+    width: 550px;
     justify-content: center;
     box-sizing: border-box;
     list-style-type: none;

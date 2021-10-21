@@ -1,0 +1,31 @@
+Adventurer_app - feature notes:
+
+1. log/reg w basic validations
+
+1a. when a user is created they will receive gold = 30
+
+2. user can create a character with this initial gold
+
+2a. you will be able to give them a name, and choose their role
+
+2b. the role will have preset attributes( str, def, spd - these stats currently do not have any use, 
+will probably help the character increase their success rate in doing quests in the future.)
+
+2c. you can view, edit(name),and delete the character
+   //need to send a message saying if this character is deleted then you will not be able to quest. Are you sure?//
+
+3. character is required in order to render the 'continue adventure' button
+
+4. Continue adventure - will lead to a battle page where the user can do a quest.
+
+4a. This quest will use the ninja gold assignments functionality of session.gold and session.rounds.
+
+4b. we will then run if check on the session counts and gold obtain to render each div.
+
+4c. the quest has a win/ lose --end dialog. you can then either return to dashboard or restart the quest.
+
+4d. if we win then you will receive a random amount of gold from the quest giver. 
+//This gold can be saved to the users account in the DB when you hit the logout button, logging out will clear the session. 
+
+5. My stretch goal for this project would be to make it a fully functioning text-based adv with graphics later on.(currently researching)
+

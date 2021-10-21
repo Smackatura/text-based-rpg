@@ -5,16 +5,21 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Get rid of {{character.name}}?</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- <script src='main.js'></script> -->
 </head>
 <body>
-    <h1>Are you sure you want to assassinate {{character.name}}?</h1>
+    <div class="container bg-rpg">
+        <h1 style="color:red;">Are you sure you want to assassinate {{character.name}}?</h1>
     <form action="/characters/{{character.id}}/destroy" method="POST">
         <input name="id" type="hidden" value={{character.id}}>
         <button type="submit">Murder {{character.name}}</button>
     </form>
     <!-- I would like to render a message "{{character.name}} has died." -->
     <a href="/">Return</a>
+    </div>
+    
 </body>
 </html>

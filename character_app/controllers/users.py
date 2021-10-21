@@ -77,6 +77,7 @@ def logout():
         'id': session['user_id'],
         'gold': session['gold']
     }
+    
     User.modify_gold(data)
     session.clear()
     return redirect("/")
